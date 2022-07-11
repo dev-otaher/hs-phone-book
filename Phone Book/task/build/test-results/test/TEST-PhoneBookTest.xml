@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-07-11T21:14:29" hostname="OT" time="6.217">
+  <properties/>
+  <testcase name="start" classname="PhoneBookTest" time="6.217"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+Start searching...
+?[1;31m
+Start test 2?[0m
+Start searching...
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
