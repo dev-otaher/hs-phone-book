@@ -1,17 +1,6 @@
 type: edu
 custom_name: stage2
 files:
-- name: src/phonebook/Main.java
-  visible: true
-  text: |
-    package phonebook;
-
-    public class Main {
-        public static void main(String[] args) {
-            System.out.println("Hello World!");
-        }
-    }
-  learner_created: false
 - name: test/PhoneBookTest.java
   visible: false
   text: "import org.hyperskill.hstest.stage.StageTest;\nimport org.hyperskill.hstest.testcase.CheckResult;\n\
@@ -70,6 +59,41 @@ files:
     \ less than the first linear search time.\");\n            }\n        }\n    \
     \    \n        return CheckResult.correct();\n    }\n}\n"
   learner_created: false
-feedback_link: https://hyperskill.org/projects/63/stages/341/implement#comment
-status: Unchecked
-record: -1
+- name: src/phonebook/SearchStats.java
+  visible: true
+  text: |
+    package phonebook;
+
+    public class SearchStats {
+        int entryCount;
+        int foundCount;
+        long duration;
+
+
+
+        public String getStats() {
+            long minutes = (duration / (1000 * 60)) % 60;
+            long seconds = (duration / 1000) % 60;
+            long ms = duration % 1000;
+            return String.format("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.", foundCount, entryCount, minutes, seconds, ms);
+        }
+
+    }
+  learner_created: true
+- name: src/phonebook/Main.java
+  visible: true
+  text: |
+    package phonebook;
+
+    public class Main {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/5483#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Wed, 13 Jul 2022 20:27:59 UTC
+record: 2

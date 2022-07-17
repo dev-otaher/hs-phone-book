@@ -60,9 +60,12 @@ files:
     \ \" + estimatedTime + \"ms in total.\");\n        }\n        \n        return\
     \ CheckResult.correct();\n    }\n}\n"
   learner_created: false
-feedback_link: https://hyperskill.org/projects/63/stages/340/implement#comment
+- name: src/phonebook/SearchStats.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5482#comment
 status: Solved
 feedback:
   message: Congratulations!
   time: Mon, 11 Jul 2022 21:14:36 UTC
-record: -1
+record: 1

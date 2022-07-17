@@ -72,6 +72,31 @@ files:
     \ + \"ms\");\n        }\n        \n        return CheckResult.correct();\n   \
     \ }\n}\n"
   learner_created: false
-feedback_link: https://hyperskill.org/projects/63/stages/342/implement#comment
-status: Unchecked
-record: -1
+- name: src/phonebook/SearchStats.java
+  visible: true
+  text: |
+    package phonebook;
+
+    public class SearchStats {
+        int entryCount;
+        int foundCount;
+        long duration;
+
+        public String getStats() {
+            return String.format("Found %d / %d entries. Time taken: %s", foundCount, entryCount, getTimeTakenString(duration));
+        }
+
+        public static String getTimeTakenString(long duration) {
+            long minutes = (duration / (1000 * 60)) % 60;
+            long seconds = (duration / 1000) % 60;
+            long ms = duration % 1000;
+            return String.format("%d min. %d sec. %d ms.", minutes, seconds, ms);
+        }
+    }
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5484#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sun, 17 Jul 2022 11:50:55 UTC
+record: 3
