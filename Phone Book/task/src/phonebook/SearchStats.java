@@ -6,10 +6,10 @@ public class SearchStats {
     long duration;
 
     public String getStats() {
-        return String.format("Found %d / %d entries. Time taken: %s", foundCount, entryCount, getTimeTakenString(duration));
+        return String.format("Found %d / %d entries. Time taken: %s", foundCount, entryCount, formatTimeTaken(duration));
     }
 
-    public static String getTimeTakenString(long duration) {
+    public static String formatTimeTaken(long duration) {
         long minutes = (duration / (1000 * 60)) % 60;
         long seconds = (duration / 1000) % 60;
         long ms = duration % 1000;
