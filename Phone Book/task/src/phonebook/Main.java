@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
+    static String[] data;
+    static String[] toBeFound;
+
     public static String readFileAsString(String fileName) {
         try {
             return new String(Files.readAllBytes(Paths.get(fileName)));
@@ -14,7 +19,7 @@ public class Main {
         }
     }
 
-    public static void startLinearSearch(String[] data, String[] toBeFound) {
+    public static void startLinearSearch() {
         System.out.println("Start searching (linear search)...");
         String[] dataClone = data.clone();
         SearchStats stats = new SearchStats();
@@ -101,7 +106,7 @@ public class Main {
         return stats;
     }
 
-    public static void startBubbleSortJumpSearch(String[] data, String[] toBeFound) {
+    public static void startBubbleSortJumpSearch() {
         System.out.println("Start searching (bubble sort + jump search)...");
         String[] dataClone = data.clone();
         long sortDuration = startBubbleSort(dataClone);
@@ -177,7 +182,7 @@ public class Main {
         return stats;
     }
 
-    public static void startQuicksortBinarySearch(String[] data, String[] toBeFound) {
+    public static void startQuicksortBinarySearch() {
         System.out.println("Start searching (quick sort + binary search)...");
         String[] dataClone = data.clone();
         long sortDuration = startQuicksort(dataClone);
@@ -185,19 +190,52 @@ public class Main {
         String totalTime = SearchStats.formatTimeTaken(sortDuration + searchStats.duration);
         System.out.printf("Found %d / %d entries. Time taken: %s\n", searchStats.foundCount, searchStats.entryCount, totalTime);
         System.out.println("Sorting time: " + SearchStats.formatTimeTaken(sortDuration));
+        System.out.println("Searching time: " + SearchStats.formatTimeTaken(searchStats.duration) + "\n");
+    }
+
+    public static Set<String> createHashTable(String[] data) {
+        Set<String> set = new HashSet<>();
+        for (String string : data) {
+            set.add(string);
+        }
+        return set;
+    }
+
+    public static SearchStats searchHashTable(Set<String> set, String[] toBeFound) {
+        SearchStats stats = new SearchStats();
+        stats.entryCount = toBeFound.length;
+        long startTime = System.currentTimeMillis();
+        for (String string : toBeFound) {
+            if (set.contains(string)) {
+                stats.foundCount++;
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        stats.duration = calcDuration(startTime, endTime);
+        return stats;
+    }
+
+    public static void startHashSearch() {
+        System.out.println("Start searching (hash table)...");
+        long creationStartTime = System.currentTimeMillis();
+        Set<String> set = createHashTable(data);
+        long creationEndTime = System.currentTimeMillis();
+        long creationDuration = creationEndTime - creationStartTime;
+        SearchStats searchStats = searchHashTable(set, toBeFound);
+        String totalTime = SearchStats.formatTimeTaken(creationDuration + searchStats.duration);
+        System.out.printf("Found %d / %d entries. Time taken: %s\n", searchStats.foundCount, searchStats.entryCount, totalTime);
+        System.out.println("Creating time: " + SearchStats.formatTimeTaken(creationDuration));
         System.out.println("Searching time: " + SearchStats.formatTimeTaken(searchStats.duration));
     }
 
     public static void main(String[] args) {
         String directoryFilename = "D:\\JetBrains Academy\\Phone Book\\directory.txt";
         String toBeFoundFilename = "D:\\JetBrains Academy\\Phone Book\\find.txt";
-//        String directoryFilename = "D:\\JetBrains Academy\\Phone Book\\small_directory.txt";
-//        String toBeFoundFilename = "D:\\JetBrains Academy\\Phone Book\\small_find.txt";
-        String[] data = readFileAsString(directoryFilename).replaceAll("\\d+\\s", "").split("\\r\\n");
-        String[] toBeFound = readFileAsString(toBeFoundFilename).split("\\r\\n");
-
-        startLinearSearch(data, toBeFound);
-        startBubbleSortJumpSearch(data, toBeFound);
-        startQuicksortBinarySearch(data, toBeFound);
+        data = readFileAsString(directoryFilename).replaceAll("\\d+\\s", "").split("\\r\\n");
+        toBeFound = readFileAsString(toBeFoundFilename).split("\\r\\n");
+        startLinearSearch();
+        startBubbleSortJumpSearch();
+        startQuicksortBinarySearch();
+        startHashSearch();
     }
 }
